@@ -1,452 +1,337 @@
 {
-    "name": "@swc/helpers",
-    "packageManager": "yarn@4.0.2",
-    "version": "0.5.5",
-    "description": "External helpers for the swc project.",
-    "module": "esm/index.js",
-    "main": "cjs/index.cjs",
-    "sideEffects": false,
-    "scripts": {
-        "build": "zx ./scripts/build.js",
-        "prepack": "zx ./scripts/build.js"
+  "name": "next",
+  "version": "14.2.5",
+  "description": "The React Framework",
+  "main": "./dist/server/next.js",
+  "license": "MIT",
+  "repository": "vercel/next.js",
+  "bugs": "https://github.com/vercel/next.js/issues",
+  "homepage": "https://nextjs.org",
+  "types": "index.d.ts",
+  "files": [
+    "dist",
+    "app.js",
+    "app.d.ts",
+    "babel.js",
+    "babel.d.ts",
+    "client.js",
+    "client.d.ts",
+    "compat",
+    "cache.js",
+    "cache.d.ts",
+    "config.js",
+    "config.d.ts",
+    "constants.js",
+    "constants.d.ts",
+    "document.js",
+    "document.d.ts",
+    "dynamic.js",
+    "dynamic.d.ts",
+    "error.js",
+    "error.d.ts",
+    "future",
+    "legacy",
+    "script.js",
+    "script.d.ts",
+    "server.js",
+    "server.d.ts",
+    "head.js",
+    "head.d.ts",
+    "image.js",
+    "image.d.ts",
+    "link.js",
+    "link.d.ts",
+    "router.js",
+    "router.d.ts",
+    "jest.js",
+    "jest.d.ts",
+    "amp.js",
+    "amp.d.ts",
+    "og.js",
+    "og.d.ts",
+    "index.d.ts",
+    "types/index.d.ts",
+    "types/global.d.ts",
+    "types/compiled.d.ts",
+    "image-types/global.d.ts",
+    "navigation-types/navigation.d.ts",
+    "navigation-types/compat/navigation.d.ts",
+    "font",
+    "navigation.js",
+    "navigation.d.ts",
+    "headers.js",
+    "headers.d.ts",
+    "navigation-types",
+    "web-vitals.js",
+    "web-vitals.d.ts",
+    "experimental/testmode/playwright.js",
+    "experimental/testmode/playwright.d.ts",
+    "experimental/testmode/playwright/msw.js",
+    "experimental/testmode/playwright/msw.d.ts",
+    "experimental/testmode/proxy.js",
+    "experimental/testmode/proxy.d.ts"
+  ],
+  "bin": {
+    "next": "./dist/bin/next"
+  },
+  "scripts": {
+    "dev": "taskr",
+    "release": "taskr release",
+    "build": "pnpm release",
+    "prepublishOnly": "cd ../../ && turbo run build",
+    "types": "tsc --declaration --emitDeclarationOnly --stripInternal --declarationDir dist",
+    "typescript": "tsec --noEmit",
+    "ncc-compiled": "ncc cache clean && taskr ncc"
+  },
+  "taskr": {
+    "requires": [
+      "./taskfile-webpack.js",
+      "./taskfile-ncc.js",
+      "./taskfile-swc.js",
+      "./taskfile-watch.js"
+    ]
+  },
+  "dependencies": {
+    "@next/env": "14.2.5",
+    "@swc/helpers": "0.5.5",
+    "busboy": "1.6.0",
+    "caniuse-lite": "^1.0.30001579",
+    "graceful-fs": "^4.2.11",
+    "postcss": "8.4.31",
+    "styled-jsx": "5.1.1"
+  },
+  "peerDependencies": {
+    "@opentelemetry/api": "^1.1.0",
+    "@playwright/test": "^1.41.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.3.0"
+  },
+  "peerDependenciesMeta": {
+    "sass": {
+      "optional": true
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/swc-project/swc.git"
+    "@opentelemetry/api": {
+      "optional": true
     },
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org/",
-        "access": "public"
-    },
-    "keywords": [
-        "swc",
-        "helpers"
-    ],
-    "author": "강동윤 <kdy1997.dev@gmail.com>",
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/swc-project/swc/issues"
-    },
-    "homepage": "https://swc.rs",
-    "type": "module",
-    "devDependencies": {
-        "@ast-grep/napi": "^0.3.1",
-        "dprint": "^0.35.3",
-        "magic-string": "^0.30.0",
-        "zx": "^7.2.1"
-    },
-    "dependencies": {
-        "@swc/counter": "^0.1.3",
-        "tslib": "^2.4.0"
-    },
-    "exports": {
-        "./package.json": "./package.json",
-        "./esm/*": "./esm/*",
-        "./cjs/*": "./cjs/*",
-        "./src/*": "./src/*",
-        ".": {
-            "import": "./esm/index.js",
-            "default": "./cjs/index.cjs"
-        },
-        "./_": {
-            "import": "./esm/index.js",
-            "default": "./cjs/index.cjs"
-        },
-        "./_/_apply_decorated_descriptor": {
-            "import": "./esm/_apply_decorated_descriptor.js",
-            "default": "./cjs/_apply_decorated_descriptor.cjs"
-        },
-        "./_/_apply_decs_2203_r": {
-            "import": "./esm/_apply_decs_2203_r.js",
-            "default": "./cjs/_apply_decs_2203_r.cjs"
-        },
-        "./_/_array_like_to_array": {
-            "import": "./esm/_array_like_to_array.js",
-            "default": "./cjs/_array_like_to_array.cjs"
-        },
-        "./_/_array_with_holes": {
-            "import": "./esm/_array_with_holes.js",
-            "default": "./cjs/_array_with_holes.cjs"
-        },
-        "./_/_array_without_holes": {
-            "import": "./esm/_array_without_holes.js",
-            "default": "./cjs/_array_without_holes.cjs"
-        },
-        "./_/_assert_this_initialized": {
-            "import": "./esm/_assert_this_initialized.js",
-            "default": "./cjs/_assert_this_initialized.cjs"
-        },
-        "./_/_async_generator": {
-            "import": "./esm/_async_generator.js",
-            "default": "./cjs/_async_generator.cjs"
-        },
-        "./_/_async_generator_delegate": {
-            "import": "./esm/_async_generator_delegate.js",
-            "default": "./cjs/_async_generator_delegate.cjs"
-        },
-        "./_/_async_iterator": {
-            "import": "./esm/_async_iterator.js",
-            "default": "./cjs/_async_iterator.cjs"
-        },
-        "./_/_async_to_generator": {
-            "import": "./esm/_async_to_generator.js",
-            "default": "./cjs/_async_to_generator.cjs"
-        },
-        "./_/_await_async_generator": {
-            "import": "./esm/_await_async_generator.js",
-            "default": "./cjs/_await_async_generator.cjs"
-        },
-        "./_/_await_value": {
-            "import": "./esm/_await_value.js",
-            "default": "./cjs/_await_value.cjs"
-        },
-        "./_/_check_private_redeclaration": {
-            "import": "./esm/_check_private_redeclaration.js",
-            "default": "./cjs/_check_private_redeclaration.cjs"
-        },
-        "./_/_class_apply_descriptor_destructure": {
-            "import": "./esm/_class_apply_descriptor_destructure.js",
-            "default": "./cjs/_class_apply_descriptor_destructure.cjs"
-        },
-        "./_/_class_apply_descriptor_get": {
-            "import": "./esm/_class_apply_descriptor_get.js",
-            "default": "./cjs/_class_apply_descriptor_get.cjs"
-        },
-        "./_/_class_apply_descriptor_set": {
-            "import": "./esm/_class_apply_descriptor_set.js",
-            "default": "./cjs/_class_apply_descriptor_set.cjs"
-        },
-        "./_/_class_apply_descriptor_update": {
-            "import": "./esm/_class_apply_descriptor_update.js",
-            "default": "./cjs/_class_apply_descriptor_update.cjs"
-        },
-        "./_/_class_call_check": {
-            "import": "./esm/_class_call_check.js",
-            "default": "./cjs/_class_call_check.cjs"
-        },
-        "./_/_class_check_private_static_access": {
-            "import": "./esm/_class_check_private_static_access.js",
-            "default": "./cjs/_class_check_private_static_access.cjs"
-        },
-        "./_/_class_check_private_static_field_descriptor": {
-            "import": "./esm/_class_check_private_static_field_descriptor.js",
-            "default": "./cjs/_class_check_private_static_field_descriptor.cjs"
-        },
-        "./_/_class_extract_field_descriptor": {
-            "import": "./esm/_class_extract_field_descriptor.js",
-            "default": "./cjs/_class_extract_field_descriptor.cjs"
-        },
-        "./_/_class_name_tdz_error": {
-            "import": "./esm/_class_name_tdz_error.js",
-            "default": "./cjs/_class_name_tdz_error.cjs"
-        },
-        "./_/_class_private_field_destructure": {
-            "import": "./esm/_class_private_field_destructure.js",
-            "default": "./cjs/_class_private_field_destructure.cjs"
-        },
-        "./_/_class_private_field_get": {
-            "import": "./esm/_class_private_field_get.js",
-            "default": "./cjs/_class_private_field_get.cjs"
-        },
-        "./_/_class_private_field_init": {
-            "import": "./esm/_class_private_field_init.js",
-            "default": "./cjs/_class_private_field_init.cjs"
-        },
-        "./_/_class_private_field_loose_base": {
-            "import": "./esm/_class_private_field_loose_base.js",
-            "default": "./cjs/_class_private_field_loose_base.cjs"
-        },
-        "./_/_class_private_field_loose_key": {
-            "import": "./esm/_class_private_field_loose_key.js",
-            "default": "./cjs/_class_private_field_loose_key.cjs"
-        },
-        "./_/_class_private_field_set": {
-            "import": "./esm/_class_private_field_set.js",
-            "default": "./cjs/_class_private_field_set.cjs"
-        },
-        "./_/_class_private_field_update": {
-            "import": "./esm/_class_private_field_update.js",
-            "default": "./cjs/_class_private_field_update.cjs"
-        },
-        "./_/_class_private_method_get": {
-            "import": "./esm/_class_private_method_get.js",
-            "default": "./cjs/_class_private_method_get.cjs"
-        },
-        "./_/_class_private_method_init": {
-            "import": "./esm/_class_private_method_init.js",
-            "default": "./cjs/_class_private_method_init.cjs"
-        },
-        "./_/_class_private_method_set": {
-            "import": "./esm/_class_private_method_set.js",
-            "default": "./cjs/_class_private_method_set.cjs"
-        },
-        "./_/_class_static_private_field_destructure": {
-            "import": "./esm/_class_static_private_field_destructure.js",
-            "default": "./cjs/_class_static_private_field_destructure.cjs"
-        },
-        "./_/_class_static_private_field_spec_get": {
-            "import": "./esm/_class_static_private_field_spec_get.js",
-            "default": "./cjs/_class_static_private_field_spec_get.cjs"
-        },
-        "./_/_class_static_private_field_spec_set": {
-            "import": "./esm/_class_static_private_field_spec_set.js",
-            "default": "./cjs/_class_static_private_field_spec_set.cjs"
-        },
-        "./_/_class_static_private_field_update": {
-            "import": "./esm/_class_static_private_field_update.js",
-            "default": "./cjs/_class_static_private_field_update.cjs"
-        },
-        "./_/_class_static_private_method_get": {
-            "import": "./esm/_class_static_private_method_get.js",
-            "default": "./cjs/_class_static_private_method_get.cjs"
-        },
-        "./_/_construct": {
-            "import": "./esm/_construct.js",
-            "default": "./cjs/_construct.cjs"
-        },
-        "./_/_create_class": {
-            "import": "./esm/_create_class.js",
-            "default": "./cjs/_create_class.cjs"
-        },
-        "./_/_create_for_of_iterator_helper_loose": {
-            "import": "./esm/_create_for_of_iterator_helper_loose.js",
-            "default": "./cjs/_create_for_of_iterator_helper_loose.cjs"
-        },
-        "./_/_create_super": {
-            "import": "./esm/_create_super.js",
-            "default": "./cjs/_create_super.cjs"
-        },
-        "./_/_decorate": {
-            "import": "./esm/_decorate.js",
-            "default": "./cjs/_decorate.cjs"
-        },
-        "./_/_defaults": {
-            "import": "./esm/_defaults.js",
-            "default": "./cjs/_defaults.cjs"
-        },
-        "./_/_define_enumerable_properties": {
-            "import": "./esm/_define_enumerable_properties.js",
-            "default": "./cjs/_define_enumerable_properties.cjs"
-        },
-        "./_/_define_property": {
-            "import": "./esm/_define_property.js",
-            "default": "./cjs/_define_property.cjs"
-        },
-        "./_/_dispose": {
-            "import": "./esm/_dispose.js",
-            "default": "./cjs/_dispose.cjs"
-        },
-        "./_/_export_star": {
-            "import": "./esm/_export_star.js",
-            "default": "./cjs/_export_star.cjs"
-        },
-        "./_/_extends": {
-            "import": "./esm/_extends.js",
-            "default": "./cjs/_extends.cjs"
-        },
-        "./_/_get": {
-            "import": "./esm/_get.js",
-            "default": "./cjs/_get.cjs"
-        },
-        "./_/_get_prototype_of": {
-            "import": "./esm/_get_prototype_of.js",
-            "default": "./cjs/_get_prototype_of.cjs"
-        },
-        "./_/_inherits": {
-            "import": "./esm/_inherits.js",
-            "default": "./cjs/_inherits.cjs"
-        },
-        "./_/_inherits_loose": {
-            "import": "./esm/_inherits_loose.js",
-            "default": "./cjs/_inherits_loose.cjs"
-        },
-        "./_/_initializer_define_property": {
-            "import": "./esm/_initializer_define_property.js",
-            "default": "./cjs/_initializer_define_property.cjs"
-        },
-        "./_/_initializer_warning_helper": {
-            "import": "./esm/_initializer_warning_helper.js",
-            "default": "./cjs/_initializer_warning_helper.cjs"
-        },
-        "./_/_instanceof": {
-            "import": "./esm/_instanceof.js",
-            "default": "./cjs/_instanceof.cjs"
-        },
-        "./_/_interop_require_default": {
-            "import": "./esm/_interop_require_default.js",
-            "default": "./cjs/_interop_require_default.cjs"
-        },
-        "./_/_interop_require_wildcard": {
-            "import": "./esm/_interop_require_wildcard.js",
-            "default": "./cjs/_interop_require_wildcard.cjs"
-        },
-        "./_/_is_native_function": {
-            "import": "./esm/_is_native_function.js",
-            "default": "./cjs/_is_native_function.cjs"
-        },
-        "./_/_is_native_reflect_construct": {
-            "import": "./esm/_is_native_reflect_construct.js",
-            "default": "./cjs/_is_native_reflect_construct.cjs"
-        },
-        "./_/_iterable_to_array": {
-            "import": "./esm/_iterable_to_array.js",
-            "default": "./cjs/_iterable_to_array.cjs"
-        },
-        "./_/_iterable_to_array_limit": {
-            "import": "./esm/_iterable_to_array_limit.js",
-            "default": "./cjs/_iterable_to_array_limit.cjs"
-        },
-        "./_/_iterable_to_array_limit_loose": {
-            "import": "./esm/_iterable_to_array_limit_loose.js",
-            "default": "./cjs/_iterable_to_array_limit_loose.cjs"
-        },
-        "./_/_jsx": {
-            "import": "./esm/_jsx.js",
-            "default": "./cjs/_jsx.cjs"
-        },
-        "./_/_new_arrow_check": {
-            "import": "./esm/_new_arrow_check.js",
-            "default": "./cjs/_new_arrow_check.cjs"
-        },
-        "./_/_non_iterable_rest": {
-            "import": "./esm/_non_iterable_rest.js",
-            "default": "./cjs/_non_iterable_rest.cjs"
-        },
-        "./_/_non_iterable_spread": {
-            "import": "./esm/_non_iterable_spread.js",
-            "default": "./cjs/_non_iterable_spread.cjs"
-        },
-        "./_/_object_destructuring_empty": {
-            "import": "./esm/_object_destructuring_empty.js",
-            "default": "./cjs/_object_destructuring_empty.cjs"
-        },
-        "./_/_object_spread": {
-            "import": "./esm/_object_spread.js",
-            "default": "./cjs/_object_spread.cjs"
-        },
-        "./_/_object_spread_props": {
-            "import": "./esm/_object_spread_props.js",
-            "default": "./cjs/_object_spread_props.cjs"
-        },
-        "./_/_object_without_properties": {
-            "import": "./esm/_object_without_properties.js",
-            "default": "./cjs/_object_without_properties.cjs"
-        },
-        "./_/_object_without_properties_loose": {
-            "import": "./esm/_object_without_properties_loose.js",
-            "default": "./cjs/_object_without_properties_loose.cjs"
-        },
-        "./_/_possible_constructor_return": {
-            "import": "./esm/_possible_constructor_return.js",
-            "default": "./cjs/_possible_constructor_return.cjs"
-        },
-        "./_/_read_only_error": {
-            "import": "./esm/_read_only_error.js",
-            "default": "./cjs/_read_only_error.cjs"
-        },
-        "./_/_set": {
-            "import": "./esm/_set.js",
-            "default": "./cjs/_set.cjs"
-        },
-        "./_/_set_prototype_of": {
-            "import": "./esm/_set_prototype_of.js",
-            "default": "./cjs/_set_prototype_of.cjs"
-        },
-        "./_/_skip_first_generator_next": {
-            "import": "./esm/_skip_first_generator_next.js",
-            "default": "./cjs/_skip_first_generator_next.cjs"
-        },
-        "./_/_sliced_to_array": {
-            "import": "./esm/_sliced_to_array.js",
-            "default": "./cjs/_sliced_to_array.cjs"
-        },
-        "./_/_sliced_to_array_loose": {
-            "import": "./esm/_sliced_to_array_loose.js",
-            "default": "./cjs/_sliced_to_array_loose.cjs"
-        },
-        "./_/_super_prop_base": {
-            "import": "./esm/_super_prop_base.js",
-            "default": "./cjs/_super_prop_base.cjs"
-        },
-        "./_/_tagged_template_literal": {
-            "import": "./esm/_tagged_template_literal.js",
-            "default": "./cjs/_tagged_template_literal.cjs"
-        },
-        "./_/_tagged_template_literal_loose": {
-            "import": "./esm/_tagged_template_literal_loose.js",
-            "default": "./cjs/_tagged_template_literal_loose.cjs"
-        },
-        "./_/_throw": {
-            "import": "./esm/_throw.js",
-            "default": "./cjs/_throw.cjs"
-        },
-        "./_/_to_array": {
-            "import": "./esm/_to_array.js",
-            "default": "./cjs/_to_array.cjs"
-        },
-        "./_/_to_consumable_array": {
-            "import": "./esm/_to_consumable_array.js",
-            "default": "./cjs/_to_consumable_array.cjs"
-        },
-        "./_/_to_primitive": {
-            "import": "./esm/_to_primitive.js",
-            "default": "./cjs/_to_primitive.cjs"
-        },
-        "./_/_to_property_key": {
-            "import": "./esm/_to_property_key.js",
-            "default": "./cjs/_to_property_key.cjs"
-        },
-        "./_/_ts_decorate": {
-            "import": "./esm/_ts_decorate.js",
-            "default": "./cjs/_ts_decorate.cjs"
-        },
-        "./_/_ts_generator": {
-            "import": "./esm/_ts_generator.js",
-            "default": "./cjs/_ts_generator.cjs"
-        },
-        "./_/_ts_metadata": {
-            "import": "./esm/_ts_metadata.js",
-            "default": "./cjs/_ts_metadata.cjs"
-        },
-        "./_/_ts_param": {
-            "import": "./esm/_ts_param.js",
-            "default": "./cjs/_ts_param.cjs"
-        },
-        "./_/_ts_values": {
-            "import": "./esm/_ts_values.js",
-            "default": "./cjs/_ts_values.cjs"
-        },
-        "./_/_type_of": {
-            "import": "./esm/_type_of.js",
-            "default": "./cjs/_type_of.cjs"
-        },
-        "./_/_unsupported_iterable_to_array": {
-            "import": "./esm/_unsupported_iterable_to_array.js",
-            "default": "./cjs/_unsupported_iterable_to_array.cjs"
-        },
-        "./_/_update": {
-            "import": "./esm/_update.js",
-            "default": "./cjs/_update.cjs"
-        },
-        "./_/_using": {
-            "import": "./esm/_using.js",
-            "default": "./cjs/_using.cjs"
-        },
-        "./_/_wrap_async_generator": {
-            "import": "./esm/_wrap_async_generator.js",
-            "default": "./cjs/_wrap_async_generator.cjs"
-        },
-        "./_/_wrap_native_super": {
-            "import": "./esm/_wrap_native_super.js",
-            "default": "./cjs/_wrap_native_super.cjs"
-        },
-        "./_/_write_only_error": {
-            "import": "./esm/_write_only_error.js",
-            "default": "./cjs/_write_only_error.cjs"
-        },
-        "./_/index": {
-            "import": "./esm/index.js",
-            "default": "./cjs/index.cjs"
-        }
+    "@playwright/test": {
+      "optional": true
     }
+  },
+  "devDependencies": {
+    "@ampproject/toolbox-optimizer": "2.8.3",
+    "@babel/code-frame": "7.22.5",
+    "@babel/core": "7.22.5",
+    "@babel/eslint-parser": "7.22.5",
+    "@babel/generator": "7.22.5",
+    "@babel/plugin-proposal-class-properties": "7.18.6",
+    "@babel/plugin-proposal-export-namespace-from": "7.18.9",
+    "@babel/plugin-proposal-numeric-separator": "7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "7.20.7",
+    "@babel/plugin-syntax-bigint": "7.8.3",
+    "@babel/plugin-syntax-dynamic-import": "7.8.3",
+    "@babel/plugin-syntax-import-assertions": "7.22.5",
+    "@babel/plugin-syntax-jsx": "7.22.5",
+    "@babel/plugin-transform-modules-commonjs": "7.22.5",
+    "@babel/plugin-transform-runtime": "7.22.5",
+    "@babel/preset-env": "7.22.5",
+    "@babel/preset-react": "7.22.5",
+    "@babel/preset-typescript": "7.22.5",
+    "@babel/runtime": "7.22.5",
+    "@babel/traverse": "7.22.5",
+    "@babel/types": "7.22.5",
+    "@capsizecss/metrics": "2.2.0",
+    "@edge-runtime/cookies": "4.1.1",
+    "@edge-runtime/ponyfill": "2.4.2",
+    "@edge-runtime/primitives": "4.1.0",
+    "@hapi/accept": "5.0.2",
+    "@jest/transform": "29.5.0",
+    "@jest/types": "29.5.0",
+    "@mswjs/interceptors": "0.23.0",
+    "@napi-rs/triples": "1.2.0",
+    "@next/polyfill-module": "14.2.5",
+    "@next/polyfill-nomodule": "14.2.5",
+    "@next/react-refresh-utils": "14.2.5",
+    "@next/swc": "14.2.5",
+    "@opentelemetry/api": "1.6.0",
+    "@playwright/test": "1.41.2",
+    "@taskr/clear": "1.1.0",
+    "@taskr/esnext": "1.1.0",
+    "@types/amphtml-validator": "1.0.0",
+    "@types/babel__code-frame": "7.0.2",
+    "@types/babel__core": "7.1.12",
+    "@types/babel__generator": "7.6.2",
+    "@types/babel__template": "7.4.0",
+    "@types/babel__traverse": "7.11.0",
+    "@types/bytes": "3.1.1",
+    "@types/ci-info": "2.0.0",
+    "@types/compression": "0.0.36",
+    "@types/content-disposition": "0.5.4",
+    "@types/content-type": "1.1.3",
+    "@types/cookie": "0.3.3",
+    "@types/cross-spawn": "6.0.0",
+    "@types/debug": "4.1.5",
+    "@types/express-serve-static-core": "4.17.33",
+    "@types/fresh": "0.5.0",
+    "@types/glob": "7.1.1",
+    "@types/graceful-fs": "4.1.9",
+    "@types/jsonwebtoken": "9.0.0",
+    "@types/lodash": "4.14.198",
+    "@types/lodash.curry": "4.1.6",
+    "@types/lru-cache": "5.1.0",
+    "@types/path-to-regexp": "1.7.0",
+    "@types/picomatch": "2.3.3",
+    "@types/platform": "1.3.4",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "18.2.15",
+    "@types/react-is": "17.0.3",
+    "@types/semver": "7.3.1",
+    "@types/send": "0.14.4",
+    "@types/shell-quote": "1.7.1",
+    "@types/tar": "6.1.5",
+    "@types/text-table": "0.2.1",
+    "@types/ua-parser-js": "0.7.36",
+    "@types/uuid": "8.3.1",
+    "@types/webpack-sources1": "npm:@types/webpack-sources@0.1.5",
+    "@types/ws": "8.2.0",
+    "@vercel/ncc": "0.34.0",
+    "@vercel/nft": "0.26.4",
+    "@vercel/turbopack-ecmascript-runtime": "https://gitpkg-fork.vercel.sh/vercel/turbo/crates/turbopack-ecmascript-runtime/js?turbopack-240417.2",
+    "acorn": "8.11.3",
+    "amphtml-validator": "1.0.35",
+    "anser": "1.4.9",
+    "arg": "4.1.0",
+    "assert": "2.0.0",
+    "async-retry": "1.2.3",
+    "async-sema": "3.0.0",
+    "babel-plugin-transform-define": "2.0.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "browserify-zlib": "0.2.0",
+    "browserslist": "4.22.2",
+    "buffer": "5.6.0",
+    "bytes": "3.1.1",
+    "ci-info": "watson/ci-info#f43f6a1cefff47fb361c88cf4b943fdbcaafe540",
+    "cli-select": "1.1.2",
+    "client-only": "0.0.1",
+    "commander": "12.0.0",
+    "comment-json": "3.0.3",
+    "compression": "1.7.4",
+    "conf": "5.0.0",
+    "constants-browserify": "1.0.0",
+    "content-disposition": "0.5.3",
+    "content-type": "1.0.4",
+    "cookie": "0.4.1",
+    "cross-spawn": "7.0.3",
+    "crypto-browserify": "3.12.0",
+    "css.escape": "1.5.1",
+    "cssnano-preset-default": "5.2.14",
+    "data-uri-to-buffer": "3.0.1",
+    "debug": "4.1.1",
+    "devalue": "2.0.1",
+    "domain-browser": "4.19.0",
+    "edge-runtime": "2.5.4",
+    "events": "3.3.0",
+    "find-up": "4.1.0",
+    "fresh": "0.5.2",
+    "get-orientation": "1.1.2",
+    "glob": "7.1.7",
+    "gzip-size": "5.1.1",
+    "http-proxy": "1.18.1",
+    "http-proxy-agent": "5.0.0",
+    "https-browserify": "1.0.0",
+    "https-proxy-agent": "5.0.1",
+    "icss-utils": "5.1.0",
+    "ignore-loader": "0.1.2",
+    "image-size": "1.0.0",
+    "is-docker": "2.0.0",
+    "is-wsl": "2.2.0",
+    "jest-worker": "27.5.1",
+    "json5": "2.2.3",
+    "jsonwebtoken": "9.0.0",
+    "loader-runner": "4.3.0",
+    "loader-utils2": "npm:loader-utils@2.0.0",
+    "loader-utils3": "npm:loader-utils@3.1.3",
+    "lodash.curry": "4.1.1",
+    "lru-cache": "5.1.1",
+    "mini-css-extract-plugin": "2.4.4",
+    "msw": "1.3.0",
+    "nanoid": "3.1.32",
+    "native-url": "0.3.4",
+    "neo-async": "2.6.1",
+    "node-html-parser": "5.3.3",
+    "ora": "4.0.4",
+    "os-browserify": "0.3.0",
+    "p-limit": "3.1.0",
+    "path-browserify": "1.0.1",
+    "path-to-regexp": "6.1.0",
+    "picomatch": "4.0.1",
+    "platform": "1.3.6",
+    "postcss-flexbugs-fixes": "5.0.2",
+    "postcss-modules-extract-imports": "3.0.0",
+    "postcss-modules-local-by-default": "4.0.4",
+    "postcss-modules-scope": "3.0.0",
+    "postcss-modules-values": "4.0.0",
+    "postcss-preset-env": "7.4.3",
+    "postcss-safe-parser": "6.0.0",
+    "postcss-scss": "4.0.3",
+    "postcss-value-parser": "4.2.0",
+    "process": "0.11.10",
+    "punycode": "2.1.1",
+    "querystring-es3": "0.2.1",
+    "raw-body": "2.4.1",
+    "react-is": "18.2.0",
+    "react-refresh": "0.12.0",
+    "regenerator-runtime": "0.13.4",
+    "sass-loader": "12.4.0",
+    "schema-utils2": "npm:schema-utils@2.7.1",
+    "schema-utils3": "npm:schema-utils@3.0.0",
+    "semver": "7.3.2",
+    "send": "0.17.1",
+    "server-only": "0.0.1",
+    "setimmediate": "1.0.5",
+    "shell-quote": "1.7.3",
+    "source-map": "0.6.1",
+    "source-map08": "npm:source-map@0.8.0-beta.0",
+    "stacktrace-parser": "0.1.10",
+    "stream-browserify": "3.0.0",
+    "stream-http": "3.1.1",
+    "strict-event-emitter": "0.5.0",
+    "string-hash": "1.1.3",
+    "string_decoder": "1.3.0",
+    "strip-ansi": "6.0.0",
+    "superstruct": "1.0.3",
+    "tar": "6.1.15",
+    "taskr": "1.1.0",
+    "terser": "5.27.0",
+    "terser-webpack-plugin": "5.3.9",
+    "text-table": "0.2.0",
+    "timers-browserify": "2.0.12",
+    "tty-browserify": "0.0.1",
+    "ua-parser-js": "1.0.35",
+    "unistore": "3.4.1",
+    "util": "0.12.4",
+    "uuid": "8.3.2",
+    "vm-browserify": "1.1.2",
+    "watchpack": "2.4.0",
+    "web-vitals": "3.0.0",
+    "webpack": "5.90.0",
+    "webpack-sources1": "npm:webpack-sources@1.4.3",
+    "webpack-sources3": "npm:webpack-sources@3.2.3",
+    "ws": "8.2.3",
+    "zod": "3.22.3"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "optionalDependencies": {
+    "@next/swc-darwin-arm64": "14.2.5",
+    "@next/swc-darwin-x64": "14.2.5",
+    "@next/swc-linux-arm64-gnu": "14.2.5",
+    "@next/swc-linux-arm64-musl": "14.2.5",
+    "@next/swc-linux-x64-gnu": "14.2.5",
+    "@next/swc-linux-x64-musl": "14.2.5",
+    "@next/swc-win32-arm64-msvc": "14.2.5",
+    "@next/swc-win32-ia32-msvc": "14.2.5",
+    "@next/swc-win32-x64-msvc": "14.2.5"
+  }
 }
